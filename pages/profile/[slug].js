@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BsBagDash } from "react-icons/bs";
 import { BiHeart } from "react-icons/bi";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const styleSheet = {
   height: `calc(100vh - 115px)`,
@@ -14,19 +14,26 @@ export default function ProfilePage() {
   const router = useRouter();
   const { slug } = router.query;
   const USERNAME = normalizeSlug(slug);
+  const [notFound, setNotFound] = useState(false);
 
   function normalizeSlug(val) {
     return val?.split("-").join(" ");
   }
 
   useEffect(() => {
-    console.log(USERNAME);
-  }, []);
+    console.log(slug);
+    if (slug !== "agresa-rianda" || slug !== "sevta") {
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
+  }, [slug]);
 
   const BIO = {
     sevta: {
-      badge: ["175cm"],
+      badge: ["175cm", "code"],
       description: "",
+      age: 28,
       albums: [
         "https://images.pexels.com/photos/9656809/pexels-photo-9656809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         "https://images.pexels.com/photos/8185942/pexels-photo-8185942.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
@@ -35,6 +42,7 @@ export default function ProfilePage() {
     "agresa rianda": {
       badge: ["155cm", "Penyayang", "demen ama aibon"],
       description: "",
+      age: 28,
       albums: [
         "https://images.pexels.com/photos/9671345/pexels-photo-9671345.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
         "https://images.pexels.com/photos/1456642/pexels-photo-1456642.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -43,12 +51,12 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="px-3 mx-auto max-w-3xl h-screen">
+    <div className="px-3 mx-auto max-w-xl h-screen">
       <div className="py-4 text-center font-semibold capitalize">
         {USERNAME}
       </div>
       <div
-        className="h-[700px] overflow-y-scroll w-full  bg-yellow-100 rounded-xl"
+        className="profile-container h-[700px] overflow-y-scroll w-full  bg-yellow-100 rounded-xl"
         style={styleSheet}
       >
         <div
@@ -65,14 +73,14 @@ export default function ProfilePage() {
 
           <div className="absolute bottom-4 left-4">
             <div className="font-bold text-white text-xl mb-2 capitalize">
-              {USERNAME}, 27
+              {USERNAME}, {BIO[USERNAME]?.age}
             </div>
             <div className="text-white flex items-center space-x-1">
-              <BsBagDash className="mb-[1px]" />
+              <BsBagDash className="mb-[1px] mr-1" />
               <div>Salah satu kuli di digital agency</div>
             </div>
             <div className="text-white flex items-center space-x-1">
-              <BiHeart className="mb-[1px]" />
+              <BiHeart className="mb-[1px] mr-1" />
               <div>
                 Taken!{" "}
                 {USERNAME === "sevta" && (
