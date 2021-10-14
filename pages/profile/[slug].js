@@ -37,6 +37,7 @@ export default function ProfilePage() {
       description: "",
       albums: [
         "https://images.pexels.com/photos/9671345/pexels-photo-9671345.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+        "https://images.pexels.com/photos/1456642/pexels-photo-1456642.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
       ],
     },
   };
@@ -54,11 +55,14 @@ export default function ProfilePage() {
           className="w-full h-[700px] relative shadow-inner"
           style={styleSheet}
         >
-          <img
-            className="object-center object-cover w-full h-full"
-            src={BIO[USERNAME].albums[0]}
-            alt=""
-          />
+          {BIO[USERNAME]?.albums.length > 0 && (
+            <img
+              className="object-center object-cover w-full h-full"
+              src={BIO[USERNAME]?.albums[0]}
+              alt=""
+            />
+          )}
+
           <div className="absolute bottom-4 left-4">
             <div className="font-bold text-white text-xl mb-2 capitalize">
               {USERNAME}, 27
@@ -117,13 +121,15 @@ export default function ProfilePage() {
           aspernatur labore praesentium inventore non.
         </div>
 
-        <div className="w-full h-[500px] overflow-hidden mt-5">
-          <img
-            className="w-full h-full object-cover object-center"
-            src={BIO[USERNAME].albums[1]}
-            alt=""
-          />
-        </div>
+        {BIO[USERNAME]?.albums.length > 0 && (
+          <div className="w-full h-[500px] overflow-hidden mt-5">
+            <img
+              className="w-full h-full object-cover object-center"
+              src={BIO[USERNAME]?.albums[1]}
+              alt=""
+            />
+          </div>
+        )}
       </div>
       <div className="py-4 text-center font-semibold">Profile</div>
     </div>
