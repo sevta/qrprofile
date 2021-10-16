@@ -35,6 +35,7 @@ export default function ProfilePage() {
       description: "",
       age: 28,
       albums: [
+        "https://pbs.twimg.com/profile_images/534624422917718016/GsM81CYZ_400x400.jpeg",
         "https://images.pexels.com/photos/9656809/pexels-photo-9656809.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         "https://images.pexels.com/photos/8185942/pexels-photo-8185942.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       ],
