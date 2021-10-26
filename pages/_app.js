@@ -1,8 +1,33 @@
+import { StoreProvider } from "easy-peasy";
 import NextNProgress from "nextjs-progressbar";
+import { useEffect } from "react";
 import "tailwindcss/tailwind.css";
-import "../styles/globals.css";
+import Container from "../components/Container";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { store, useStore } from "../store";
 
-function MyApp({ Component, pageProps }) {
+import "../styles/globals.css";
+import { strapi } from "../utils";
+
+export default function MyApp({ Component, pageProps }) {
+  const { setUser, setAuth } = useStore();
+
+  async function checkUser() {
+    const resp = await strapi.fetchUser();
+    console.log(resp);
+    if (resp) {
+      setUser({
+        user: resp,
+      });
+      setAuth(true);
+    }
+  }
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
     <>
       <NextNProgress
@@ -12,9 +37,13 @@ function MyApp({ Component, pageProps }) {
         height={3}
         showOnShallow={true}
       />
-      <Component {...pageProps} />
+      <StoreProvider store={store}>
+        <Container>
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </Container>
+      </StoreProvider>
     </>
   );
 }
-
-export default MyApp;
